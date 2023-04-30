@@ -2,10 +2,10 @@ package negocio;
 
 import datos.CategoriaDAO;
 import entidades.Categorias;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 
 public class CategoriaControl {
@@ -37,7 +37,8 @@ public class CategoriaControl {
             } else {
                 estado = "Inactivo";
             }
-            //Llenar el regustro
+            
+            //Llenar el registro
             registro[0] = Integer.toString(item.getIdCategoria());
             registro[1] = item.getNombreCategoria();
             registro[2] = item.getDescripcionCategoria();

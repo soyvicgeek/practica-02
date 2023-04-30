@@ -28,12 +28,11 @@ public class CategoriaDAO implements CrudSimpleInterface<Categorias> {
             sql="SELECT * FROM categorias";
             ps=CON.conectar().prepareStatement(sql);
             rs=ps.executeQuery();
-            while(rs.next())
-            {
+            while(rs.next()) {
                 registros.add(new Categorias(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getBoolean(6)));
             }
-              ps.close();
-        rs.close();
+            ps.close();
+            rs.close();
         }catch(SQLException e)
                 {
                    JOptionPane.showMessageDialog(null, e.getMessage());
