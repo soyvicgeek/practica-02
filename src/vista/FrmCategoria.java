@@ -32,6 +32,10 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
         tabGeneral.setEnabledAt(1, false);
         accion = "Guardar";
         
+        //Total de registros
+        String total = Integer.toString(CONTROL.total());
+        lblRegistros.setText("Registros mostrados: " + total + " de un total de " + total);
+        
         //Ocultar variables
         txtId.setVisible(false);
         txtImg.setVisible(false);
@@ -82,13 +86,13 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaListado = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnActivar = new javax.swing.JButton();
         btnDesactivar = new javax.swing.JButton();
+        lblRegistros = new javax.swing.JLabel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -133,10 +137,6 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tablaListado);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 100, 670, 240));
-
-        jTextField1.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        jTextField1.setText("Registros");
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 360, -1, -1));
         jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 310, -1));
 
         jButton1.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -179,6 +179,9 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(btnDesactivar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 120, -1));
+
+        lblRegistros.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jPanel1.add(lblRegistros, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 350, 410, 30));
 
         jTabbedPane2.addTab("", jPanel1);
 
@@ -275,6 +278,8 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
         tabGeneral.setSelectedIndex(1);
         accion = "Guardar";
         btnGuardar.setText("Guardar");
+        
+        dibujarCcategoria("src/imagenes/categorias/categoria_default.jpg");
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnCancerlarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancerlarActionPerformed
@@ -311,7 +316,7 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
             mensajeError("Debe escribir un nombre de categoría");
             txtNombreCategoria.requestFocus();
             return;
-        }
+        }       
         
         //2. Verificar la variable acción
         if (accion.equals("Editar")){
@@ -373,17 +378,23 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
             
             }
             
-        } else {
-            try{
-                String dest = System.getProperty("user.dir") + "/src/imagenes/categorias/" + archivoImagenCategoria.getName();
-                Path destino = Paths.get(dest);
+        } else {        
+            String img = "categoria_default.jpg";
+            
+            if (imgName != null){
+                 try{
+                    String dest = System.getProperty("user.dir") + "/src/imagenes/categorias/" + archivoImagenCategoria.getName();
+                    Path destino = Paths.get(dest);
 
-                Files.copy(imgTemp, destino, REPLACE_EXISTING);
-            } catch (IOException ex) {
-                System.out.println("Error" + ex);
+                    Files.copy(imgTemp, destino, REPLACE_EXISTING);
+                } catch (IOException ex) {
+                    System.out.println("Error" + ex);
+                }               
+                img = archivoImagenCategoria.getName();
             }
+           
             //Vamos a colocar aquí el código
-            resp = CONTROL.insertar(txtNombreCategoria.getText(), archivoImagenCategoria.getName(), txtDescripcion.getText(), txtObservaciones.getText());
+            resp = CONTROL.insertar(txtNombreCategoria.getText(), img, txtDescripcion.getText(), txtObservaciones.getText());
             
             if(resp.equals("OK")){
                 mensajeOK("Registro insertado correctamente");
@@ -510,9 +521,9 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lblImagenCategoria;
+    private javax.swing.JLabel lblRegistros;
     private javax.swing.JTabbedPane tabGeneral;
     private javax.swing.JTable tablaListado;
     private javax.swing.JTextArea txtDescripcion;

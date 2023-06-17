@@ -2,10 +2,8 @@ package negocio;
 
 import datos.CategoriaDAO;
 import entidades.Categorias;
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 public class CategoriaControl {
@@ -125,5 +123,9 @@ public class CategoriaControl {
         } else {
             return "No se puede activar el registro";
         }
+    }
+    
+    public int total() {
+        return DATOS.total();
     }
 }

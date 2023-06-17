@@ -1,10 +1,13 @@
 package vista;
 
 import java.awt.Color;
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 import libreriabasica.Usuario;
-import database.Conexion;
 
 public class Login extends javax.swing.JFrame {
 
@@ -14,16 +17,10 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         
-        //Verificar si abre la base de datos
-        Conexion conn = new Conexion("VideoGames", "root", "123", "jdbc:mysql://localhost:3306/");
-        
-        conn.conectar();
-        
-        /*if (conn.cadena == null) {
-            System.out.println("No conectado");
-        } else {
-            System.out.println("Conectado");
-        }*/
+        //String uuid = java.util.UUID.randomUUID().toString();
+        //System.out.println(uuid);
+        //String result = uuid.replaceAll("-", "");
+        //System.out.println(result.substring(0, 20));
     }
 
     /**

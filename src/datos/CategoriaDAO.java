@@ -45,6 +45,28 @@ public class CategoriaDAO implements CrudSimpleInterface<Categorias> {
         }
         return registros;
     }
+    
+    public List<Categorias> listarCategorias() {
+        List<Categorias> registros = new ArrayList();
+        String sql;
+        try{
+            sql="SELECT idCategoria, nombreCategoria FROM categorias WHERE activo = 1 order by nombreCategoria asc";
+            ps=CON.conectar().prepareStatement(sql);
+            rs=ps.executeQuery();
+            while(rs.next()) {
+                registros.add(new Categorias(rs.getInt(1),rs.getString(2)));
+            }
+            ps.close();
+            rs.close();
+        } catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } finally {
+            ps=null;
+            rs=null;
+            CON.desconectar();
+        }
+        return registros;
+    }
 
     @Override
     public boolean insertar(Categorias obj) {
@@ -174,16 +196,15 @@ public class CategoriaDAO implements CrudSimpleInterface<Categorias> {
     public int total() {
         String sql;
         int totalRegistros=0;
-        try
-        {
-    sql="SELECT COUNT(idCategoria) as numRegistros FROM Categorias ";
+        try {
+            sql="SELECT COUNT(idCategoria) as numRegistros FROM Categorias ";
             ps=CON.conectar().prepareStatement(sql);
             rs=ps.executeQuery();
             
             while(rs.next())    
                 totalRegistros=rs.getInt("numRegistros");
             
-        ps.close();
+            ps.close();
         }catch(SQLException e)
                 {
                    JOptionPane.showMessageDialog(null, e.getMessage());
